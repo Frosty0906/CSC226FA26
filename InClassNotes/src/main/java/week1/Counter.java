@@ -6,7 +6,7 @@ public class Counter {
     // TODO: Declare private int count;
     private int count;
 
-    // 3. Write the default constructor
+    // 3. Write the default constructor ---
     public Counter() {
         count = 0;
     }
