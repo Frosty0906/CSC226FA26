@@ -1,0 +1,11 @@
+patientID,name,age,chiefComplaint,triageLevel,currentStage,assignedRoom,arrivalHour,insuranceID
+P001,John Smith,45,Chest Pain,1,Admission,ER-101,8,INS-12345
+P002,Mary Johnson,32,Headache,3,Admission,ER-102,9,INS-23456
+P003,Robert Williams,67,Abdominal Pain,2,Triage,ER-103,10,INS-34567
+P004,Patricia Brown,28,Shortness of Breath,1,Treatment,ER-104,11,INS-45678
+P005,Michael Davis,8,Fractured Arm,2,Pediatrics,PED-201,12,INS-56789
+P006,Linda Miller,55,Allergic Reaction,3,Recovery,REC-301,13,INS-67890
+P007,James Wilson,41,Nausea and Vomiting,3,Admission,ER-105,14,INS-78901
+P008,Elizabeth Moore,72,Dizziness,2,Triage,ER-106,15,INS-89012
+P009,David Taylor,19,Back Pain,4,Waiting,WR-001,16,INS-90123
+P010,Barbara Anderson,35,Cut on Hand,3,Treatment,ER-107,17,INS-01234
