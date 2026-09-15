@@ -32,6 +32,7 @@ public class AustinsTests {
 
     // test 1
     // checks to make sure resizing keeps patients in order
+    // why it matters: could cause issues when searching for patients if the order is messed up
     @Test 
     void testResizeKeepsPatientsInOrder() {
         // add 15 patients to trigger resizing
@@ -48,6 +49,7 @@ public class AustinsTests {
 
     // test 2
     // checks if removing a patient from the middle keeps the order of the rest 
+    // why it matters: again it could cause issues when searching for patients if the order is messed up
     @Test 
     void testRemovePatientKeepsOrder() {
         // add 5 patients
@@ -66,6 +68,7 @@ public class AustinsTests {
 
     // test 3
     // trying to remove a bad index should return null and shouldn't change the registry
+    // why it matters: could cause issues if the program crashes or behaves unexpectedly when trying to remove a patient that doesn't exist
     @Test 
     void testRemovePatientWithInvalidIndex() {
         // add 3 patients
@@ -81,6 +84,7 @@ public class AustinsTests {
 
     // test 4
     // updating an id that doesn't exist returns false and shouldn't change the registry
+    // why it matters: again could cause issues if the program crashes or behaves unexpectedly when trying to update a patient that doesn't exist
     @Test
     void testUpdateNonExistentPatient() {
         // add a patient
@@ -94,8 +98,9 @@ public class AustinsTests {
         assertEquals("P001", registry.getPatientRegistry()[0].getPatientID(), "Existing patient should remain unchanged");
     }
 
-        // test 5
+    // test 5
     // checks to make sure ages 0 and 120 are allowed since those are the edges of the valid range
+    // why it matters: could cause issues if the program crashes or behaves unexpectedly when trying to set an age at the edges of the valid range
     @Test
     void testBoundaryAgesAreAccepted() {
         // 0 should work because newborns come into the ER
@@ -109,6 +114,7 @@ public class AustinsTests {
 
     // test 6
     // makes sure an empty registry doesn't blow up when toString is called
+    // why it matters: could cause issues if the program crashes or behaves unexpectedly when trying to display an empty registry
     @Test
     void testToStringOnEmptyRegistry() {
         String registryString = registry.toString();

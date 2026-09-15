@@ -12,7 +12,7 @@ public class PatientRegistry {
     public PatientRegistry() {
         // TODO REQUIRED: Create the initial array and set the starting size.
         this.patientRegistry = new Patient[INITIAL_CAPACITY];
-        this.size = 0; // idk probs good to start at 0 since no patients are added yet
+        this.size = 0; // probs good to start at 0 since no patients are added yet
     }
 
     public void addPatient(Patient patient) {
