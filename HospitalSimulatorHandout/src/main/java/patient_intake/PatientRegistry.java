@@ -1,6 +1,5 @@
 package patient_intake;
 // Switch from using ArrayList to a flat array implementation for patient storage.
-
 public class PatientRegistry {
     // Flat array to store patients and a size field to track the number of stored patients.
     private Patient[] patientRegistry;
@@ -34,8 +33,8 @@ public class PatientRegistry {
      * The optional encapsulation extension requires returning a defensive copy.
      */
     public Patient[] getPatientRegistry() {
-        // TODO REQUIRED: Return the patients currently stored.
-        // i did the extension so it loops thru and copies the array and then returns the copy... 
+        // returns the patients currently stored.
+        // loops thru and copies the array and then returns the copy... 
         // also only returns the part of the array that has patients in it and not empty spaces
         Patient[] copyToRtrn = new Patient[this.size]; // makes the copy
         for (int i = 0; i < this.size; i++) { // only loops thru the part of the array that has patients in it
@@ -46,7 +45,7 @@ public class PatientRegistry {
     }
 
     public Patient getPatientByID(String patientID) {
-        // TODO REQUIRED: Search for and return the matching patient.
+        // searches for and returns a patient by their ID, or null if not found
         for (int i = 0; i < this.size; i++) { // loops thru patient array
             if (this.patientRegistry[i].getPatientID().equals(patientID)) {
                 return this.patientRegistry[i]; // returns the patient if found
@@ -61,7 +60,7 @@ public class PatientRegistry {
      * @return true if patient was found and removed, false otherwise
      */
     public boolean removePatient(String patientID) {
-        // TODO OPTIONAL (+5%): Remove the patient with this ID.
+        // removes patient by id
         // loop thru patient array and find the patient with id, then remove it and shift array
         for (int i = 0; i < this.size; i++) {
             if (this.patientRegistry[i].getPatientID().equals(patientID)) {
@@ -83,7 +82,7 @@ public class PatientRegistry {
      * @return the removed Patient, or null if index is invalid
      */
     public Patient removePatient(int index) {
-        // TODO OPTIONAL (+5%): Remove by index and shift later elements left.
+        // removes a patient by index and shift later elements left.
         // basically same thing as above but with index instead of id
         for (int i = 0; i < this.size; i++) {
             if (i == index) {

@@ -1,11 +1,14 @@
 package patient_intake;
 
 // got these imports from the other test files
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import org.junit.jupiter.api.BeforeEach;
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
 
-public class AustinsTests {
+public class AustinsTestsWk1 {
     private PatientRegistry registry;
     private Patient patientToTest;
     // helper method to build a test patient with a given id so I'm not retyping all ten fields

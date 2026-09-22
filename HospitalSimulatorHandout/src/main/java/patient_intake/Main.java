@@ -18,9 +18,9 @@ public class Main {
             String line = fileReader.nextLine();
             String[] parts = line.split(",");
 
-            // TODO REQUIRED: Parse the fields from parts.
-            // TODO REQUIRED: Split the full name into firstName and lastName.
-            // TODO REQUIRED: Create a Patient and add it to patients.
+            // parses the fields from parts
+            // splits the full name into firstName and lastName
+            // creates a Patient and adds it to patients
 
             String patientID = parts[0];
 
@@ -43,10 +43,10 @@ public class Main {
 
          }
 
-         // TODO REQUIRED: Display the completed registry.
+         // displays completed registry
          System.out.println(patients); // displays registry
       } catch (FileNotFoundException exception) {
-         // TODO REQUIRED: Report a missing input file.
+         // reports missing input file and exits the program
          System.err.println("Error: Input file not found: " + filePath); // no file or wrong file
       }
    }
