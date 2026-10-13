@@ -9,7 +9,6 @@ public class PatientRegistry {
     private static final int INITIAL_CAPACITY = 10;
 
     public PatientRegistry() {
-        // TODO REQUIRED: Create the initial array and set the starting size.
         this.patientRegistry = new Patient[INITIAL_CAPACITY];
         this.size = 0; // probs good to start at 0 since no patients are added yet
     }
@@ -118,7 +117,6 @@ public class PatientRegistry {
     
     @Override
     public String toString() {
-        // TODO REQUIRED: Return a useful representation of the registry.
         //loops thru array and adds each patient and their info to a nice string to return
         String formattedString = "PatientRegistry (size=" + this.size + "):\n";
             for (int i = 0; i < this.size; i++) {

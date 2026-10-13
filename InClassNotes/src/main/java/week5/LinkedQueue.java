@@ -6,21 +6,41 @@ public class LinkedQueue<T> implements QueueInterface<T> {
 
     @Override
     public void enqueue(T element) {
-        throw new UnsupportedOperationException("Not implemented");
+        LLNode<T> newNode = new LLNode<>(element);
+        if (isEmpty()) {
+            // makes the front and the rear reference point to the new node
+            front = newNode;
+            rear = newNode;
+        } else {
+            // updates the rear node's next reference to point to the new node
+            rear.setNext(newNode);
+            rear = newNode;
+        }
     }
 
     @Override
     public T dequeue() {
-        throw new UnsupportedOperationException("Not implemented");
+        if (isEmpty()) {
+            System.out.println("Q is mpty");
+            return null;
+        }
+        else {
+            T removedElement = front.getInfo();
+            front = front.getNext();
+            if (front == null) {
+                rear = null;
+            }
+            return removedElement;
+        }
     }
 
     @Override
     public boolean isFull() {
-        throw new UnsupportedOperationException("Not implemented");
+        return false;
     }
 
     @Override
     public boolean isEmpty() {
-        throw new UnsupportedOperationException("Not implemented");
+        return front == null;
     }
 }

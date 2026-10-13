@@ -5,7 +5,6 @@ import patient_intake.Patient;
 public class EfficiencyTester {
 
     /**
-     * REQUIRED (80%): Implement linear search.
      *
      * Search through the patient array one element at a time until the matching
      * patientID is found. Return the Patient if it exists; otherwise return null.
@@ -24,7 +23,7 @@ public class EfficiencyTester {
     }
 
     /**
-     * REQUIRED (80%): Implement binary search.
+     * 
      *
      * This method works only on an array that is sorted by patientID.
      * Repeatedly divide the search range in half until the target is found.
@@ -50,22 +49,8 @@ public class EfficiencyTester {
         return null; // no patient found
     }
 
-    /**
-     * OPTIONAL (+5%): Implement a different O(log n) search algorithm.
-     *
-     * Pick one of the following approaches and implement it:
-     * - Exponential search
-     * - Jump search
-     * - Ternary search
-     *
-     * Add a short comment above the method explaining:
-     * - which algorithm you chose
-     * - where you learned about it
-     * - why it works
-     */
+
     public Patient logNSearch(Patient[] sortedPatients, String pid) {
-        // TODO OPTIONAL: Research and implement a second O(log n) algorithm.
-        // Cite your source and explain the approach in a comment before the logic.
 
         // for this one I chose exponential search
         // i learned about it from this helpful github repo https://github.com/MrtitaniumJ/Java-basic-to-advance/tree/main/04-Collections-and-DSA/03-Algorithms/01-Searching/05-Exponential-Search

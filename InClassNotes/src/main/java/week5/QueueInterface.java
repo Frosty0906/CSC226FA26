@@ -8,5 +8,5 @@ public interface QueueInterface<T> {
     boolean isFull();
     // Returns true if this queue is full; otherwise, returns false.
     boolean isEmpty();
-    // Returns true if this queue is empty; otherwise, returns false.
+    // returns false if que is empty
 }
