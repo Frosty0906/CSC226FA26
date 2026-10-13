@@ -20,7 +20,8 @@ public class TreatmentHistory {
      */
     public TreatmentRecord undoLastAction() {
         // TODO: Pop and return the newest record. Empty pop returns null.
-        return null;
+        // this undos the last actino because popping the stack removes the most recent treatment record that was added to the stack, undoing the last thing that was done
+        return allRecords.pop();
     }
 
     /**
@@ -28,6 +29,6 @@ public class TreatmentHistory {
      */
     public String displayHistory() {
         // TODO: Use the stack's top-to-bottom string representation.
-        return "[]";
+        return allRecords.toString();
     }
 }

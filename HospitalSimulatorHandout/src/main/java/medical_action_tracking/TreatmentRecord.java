@@ -12,23 +12,25 @@ public class TreatmentRecord {
     }
 
     public String getPatientID() {
-        // TODO: Return the patient ID.
-        return null;
+        // TODO: Return the patient ID. 
+        return patientID;
     }
 
     public String getTreatmentName() {
         // TODO: Return the treatment description.
-        return null;
+
+        // there is no description veriable so i did name... i assume this is what you meant
+        return treatmentName;
     }
 
     public String getTimestamp() {
         // TODO: Return the timestamp.
-        return null;
+        return timestamp;
     }
 
     @Override
     public String toString() {
         // TODO: Return "timestamp | patientID | treatmentName".
-        return "";
+        return timestamp + " | " + patientID + " | " + treatmentName;
     }
 }
