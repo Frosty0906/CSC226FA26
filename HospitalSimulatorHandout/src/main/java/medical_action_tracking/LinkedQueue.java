@@ -110,4 +110,18 @@ public class LinkedQueue<T> {
         }
         appendNodesRecursively(current.next, result);
     }
+
+    // recursive queue count extension 
+    public int countRecursively() {
+        return countNodes(front);
+    }
+
+    private int countNodes(Node current) {
+        // if the current node is null, return 0
+        if (current == null) {
+            return 0;
+        }
+        // otherwise, return 1 + the count of the next node
+        return 1 + countNodes(current.next);
+    }
 }

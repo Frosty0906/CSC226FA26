@@ -39,10 +39,70 @@ public class Main {
         TreatmentRecord undone = history.undoLastAction();
         System.out.println("Undid: " + undone);
         System.out.println("Remaining log: " + history.displayHistory());
+
+        // EXTENSION: simulation metrics
+        // each patient gets an arrival minute and how many minutes their service takes (arrivals have to be in order)
+        Patient[] simPatients = {
+                patient("S001", 3),
+                patient("S002", 2),
+                patient("S003", 1),
+                patient("S004", 2),
+                patient("S005", 4)
+        };
+        int[] arrivalMinutes = {0, 2, 4, 5, 6};
+        int[] serviceMinutes = {10, 5, 8, 4, 3};
+
+        EmergencyWaitingRoom simRoom = new EmergencyWaitingRoom();
+        int clock = 0;
+        // index of the next patient who hasn't shown up yet
+        int nextArrival = 0;
+        int totalWait = 0;
+        int served = 0;
+
+        System.out.println("\nSimulation:");
+        while (nextArrival < simPatients.length || !simRoom.isEmpty()) {
+            // if nobody is waiting, jump the clock ahead to the next arrival
+            if (simRoom.isEmpty() && clock < arrivalMinutes[nextArrival]) {
+                clock = arrivalMinutes[nextArrival];
+            }
+            // everyone who has arrived by now goes into the waiting room
+            while (nextArrival < simPatients.length && arrivalMinutes[nextArrival] <= clock) {
+                simRoom.addPatient(simPatients[nextArrival]);
+                nextArrival++;
+            }
+
+            Patient current = simRoom.nextPatient();
+            int index = indexOf(simPatients, current.getPatientID());
+            // waiting time = minute service starts minus arrival minute, service time doesn't count
+            int wait = clock - arrivalMinutes[index];
+            totalWait += wait;
+            served++;
+            System.out.println("Minute " + clock + ": serving " + current.getPatientID()
+                    + " (triage level " + current.getTriageLevel() + ", arrived minute "
+                    + arrivalMinutes[index] + ", waited " + wait + " min)");
+
+            // doctor is busy until this patient is done
+            clock += serviceMinutes[index];
+        }
+        System.out.println("Average wait time: " + ((double) totalWait / served) + " minutes");
+
     }
 
     private static Patient patient(String patientID, int triageLevel) {
         return new Patient(patientID, "Test", "Patient", 30, "Checkup", triageLevel,
                 "Waiting", "ER-001", 9, "INS-001");
     }
+
+    // EXTENSION: simulation metrics
+    // finds a patient's spot in the sim array so I can look up their arrival and service minutes
+    private static int indexOf(Patient[] patients, String patientID) {
+        for (int i = 0; i < patients.length; i++) {
+            if (patients[i].getPatientID().equals(patientID)) {
+                return i;
+            }
+        }
+        // failsafe 
+        return -1;
+    }
+
 }

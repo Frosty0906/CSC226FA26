@@ -8,6 +8,8 @@ public class EmergencyWaitingRoom {
     private LinkedQueue<Patient> level3;
     private LinkedQueue<Patient> level4;
 
+    public static int triagequeuecapacity = 5;
+
     public EmergencyWaitingRoom() {
         // TODO: Create one empty FIFO queue for each triage level.
         level1 = new LinkedQueue<>();
@@ -31,16 +33,28 @@ public class EmergencyWaitingRoom {
         int triageLevel = patient.getTriageLevel();
         switch (triageLevel) {
             // puts them in the right queue based on triage level
-            case 1:
-                level1.enqueue(patient);
+            case 1: 
+                if (level1.size() >= triagequeuecapacity) {
+                    return false;
+                }
+                level1.enqueue(patient); 
                 break;
             case 2:
+                if (level2.size() >= triagequeuecapacity) {
+                    return false;
+                }
                 level2.enqueue(patient);
                 break;
-            case 3:
+            case 3: 
+                if (level3.size() >= triagequeuecapacity) {
+                    return false;
+                }
                 level3.enqueue(patient);
                 break;
             case 4:
+                if (level4.size() >= triagequeuecapacity) {
+                    return false;
+                }
                 level4.enqueue(patient);
                 break;
             default:

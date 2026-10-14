@@ -118,4 +118,67 @@ public class StudentCareTests {
         assertEquals("[]", history.displayHistory());
         assertNull(history.undoLastAction());
     }
+
+
+    // EXTENSION TESTS
+
+    // extension test 1
+    // recursive count on an empty queue should be 0 and match size()
+    @Test
+    void testCountRecursiveEmptyQueue() {
+        LinkedQueue<String> queue = new LinkedQueue<>();
+        assertEquals(0, queue.countRecursively());
+        assertEquals(queue.size(), queue.countRecursively());
+    }
+
+    // extension test 2
+    // recursive count on a multi-node queue should match size(), even after a dequeue
+    @Test
+    void testCountRecursiveMatchesSizeMultiNode() {
+        LinkedQueue<String> queue = new LinkedQueue<>();
+        queue.enqueue("a");
+        queue.enqueue("b");
+        queue.enqueue("c");
+        assertEquals(3, queue.countRecursively());
+        assertEquals(queue.size(), queue.countRecursively());
+
+        queue.dequeue();
+        assertEquals(queue.size(), queue.countRecursively());
+    }
+
+    // extension test 3
+    // fills lane 2 to capacity, then the next level 2 patient gets rejected but other lanes still work
+    @Test
+    void testFullLaneRejectsWithoutChangingLanes() {
+        EmergencyWaitingRoom waitingRoom = new EmergencyWaitingRoom();
+        for (int i = 0; i < EmergencyWaitingRoom.triagequeuecapacity; i++) {
+            assertTrue(waitingRoom.addPatient(patient("P2" + i, 2)));
+        }
+
+        assertFalse(waitingRoom.addPatient(patient("P2X", 2)));
+        assertEquals(EmergencyWaitingRoom.triagequeuecapacity, waitingRoom.size());
+        assertTrue(waitingRoom.addPatient(patient("P1", 1)));
+    }
+
+    // extension test 4
+    // array queue keeps FIFO order after wrapping around and resizing
+    @Test
+    void testArrayQueueWrapsAndResizes() {
+        ArrayQueue<String> queue = new ArrayQueue<>();
+        queue.enqueue("a");
+        queue.enqueue("b");
+        queue.enqueue("c");
+        queue.dequeue();
+        queue.dequeue();
+        // these wrap around to the start of the array and then force a resize
+        queue.enqueue("d");
+        queue.enqueue("e");
+        queue.enqueue("f");
+        queue.enqueue("g");
+
+        assertEquals("[c, d, e, f, g]", queue.toString());
+        assertEquals(5, queue.size());
+        assertEquals("c", queue.dequeue());
+    }
+
 }
