@@ -43,4 +43,18 @@ class TreatmentHistoryTest {
         assertEquals("[]", history.displayHistory());
         assertNull(history.undoLastAction());
     }
+
+    @Test
+    void fourArgumentAddTreatmentStoresStaffIdAndThreeArgumentOverloadStillWorks() {
+        TreatmentHistory history = new TreatmentHistory();
+        history.addTreatment("P001", "Assessment", "2026-09-27 09:00");
+        history.addTreatment("P002", "X-ray", "2026-09-27 09:05", "S03");
+
+        TreatmentRecord assigned = history.undoLastAction();
+
+        assertEquals("P002", assigned.getPatientID());
+        assertEquals("S03", assigned.getPerformedBy());
+        assertEquals("X-ray", assigned.getTreatmentName());
+        assertNull(history.undoLastAction().getPerformedBy());
+    }
 }
