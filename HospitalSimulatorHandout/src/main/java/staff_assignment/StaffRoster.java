@@ -31,27 +31,27 @@ public class StaffRoster {
 
     // TODO: Pick the least-loaded staff member at or above "required", raise their load by 1, and return them.
     public StaffMember assign(Seniority required) {
-    StaffMember best = null;
-    // seniority.values() = TECH, NURSE, RESIDENT, ATTENDING (lowest first)
-    for (Seniority seniority : Seniority.values()) {
-        // skip levels below the required one
-        if (seniority.compareTo(required) >= 0) {
-            TreeSet<StaffMember> tier = tiers.get(seniority);
-            // tier is null if nobody at this level was ever added
-            if (tier != null && !tier.isEmpty()) {
-                StaffMember candidate = tier.first();   // least-loaded in this tier
-                // strict < means ties keep the lower-seniority person found earlier
-                if (best == null || candidate.getCaseLoad() < best.getCaseLoad()) {
-                    best = candidate;
+        StaffMember best = null;
+        // seniority.values() = TECH, NURSE, RESIDENT, ATTENDING (lowest first)
+        for (Seniority seniority : Seniority.values()) {
+            // skip levels below the required one
+            if (seniority.compareTo(required) >= 0) {
+                TreeSet<StaffMember> tier = tiers.get(seniority);
+                // tier is null if nobody at this level was ever added
+                if (tier != null && !tier.isEmpty()) {
+                    StaffMember candidate = tier.first();   // least-loaded in this tier
+                    // strict < means ties keep the lower-seniority person found earlier
+                    if (best == null || candidate.getCaseLoad() < best.getCaseLoad()) {
+                        best = candidate;
+                    }
                 }
             }
         }
-    }
-    if (best == null) {
-        throw new NoSuchElementException("No qualified staff for " + required);
-    }
-    changeLoad(best, best.getCaseLoad() + 1);
-    return best;
+        if (best == null) {
+            throw new NoSuchElementException("No qualified staff for " + required);
+        }
+        changeLoad(best, best.getCaseLoad() + 1);
+        return best;
     }
 
 
