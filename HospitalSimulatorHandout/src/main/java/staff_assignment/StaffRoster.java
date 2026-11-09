@@ -8,15 +8,19 @@ import medical_action_tracking.TreatmentHistory;
 import medical_action_tracking.TreatmentRecord;
 
 public class StaffRoster {
-    // Week 3 stack-based history; every assignment is recorded here so it can be undone.
+    // Week 3 stack-based history; every assignment is recorded here so it can be
+    // undone.
     private final TreatmentHistory history = new TreatmentHistory();
 
-    // Outer map groups staff by seniority; each inner set is sorted by StaffMember's ordering.
+    // Outer map groups staff by seniority; each inner set is sorted by
+    // StaffMember's ordering.
     private final TreeMap<Seniority, TreeSet<StaffMember>> tiers = new TreeMap<>();
 
-    // TODO: Add the staff member to the correct tier, and reject a duplicate staffId.
+    // TODO: Add the staff member to the correct tier, and reject a duplicate
+    // staffId.
     public void addStaff(StaffMember staff) {
-        // gets the tier for the staff member's seniority, creating it if it doesn't exist
+        // gets the tier for the staff member's seniority, creating it if it doesn't
+        // exist
         TreeSet<StaffMember> tier = tiers.get(staff.getSeniority());
         if (tier == null) {
             tier = new TreeSet<>();
@@ -29,7 +33,8 @@ public class StaffRoster {
         tier.add(staff);
     }
 
-    // TODO: Pick the least-loaded staff member at or above "required", raise their load by 1, and return them.
+    // TODO: Pick the least-loaded staff member at or above "required", raise their
+    // load by 1, and return them.
     public StaffMember assign(Seniority required) {
         StaffMember best = null;
         // seniority.values() = TECH, NURSE, RESIDENT, ATTENDING (lowest first)
@@ -39,7 +44,7 @@ public class StaffRoster {
                 TreeSet<StaffMember> tier = tiers.get(seniority);
                 // tier is null if nobody at this level was ever added
                 if (tier != null && !tier.isEmpty()) {
-                    StaffMember candidate = tier.first();   // least-loaded in this tier
+                    StaffMember candidate = tier.first(); // least-loaded in this tier
                     // strict < means ties keep the lower-seniority person found earlier
                     if (best == null || candidate.getCaseLoad() < best.getCaseLoad()) {
                         best = candidate;
@@ -54,10 +59,8 @@ public class StaffRoster {
         return best;
     }
 
-
-
-
-    // TODO: Lower the staff member's load by 1 (never below 0) and keep the tree ordered.
+    // TODO: Lower the staff member's load by 1 (never below 0) and keep the tree
+    // ordered.
     public void release(StaffMember staff) {
         changeLoad(staff, Math.max(staff.getCaseLoad() - 1, 0));
     }
@@ -78,14 +81,16 @@ public class StaffRoster {
         for (Seniority seniority : tiers.descendingKeySet()) {
             TreeSet<StaffMember> tier = tiers.get(seniority);
             System.out.println("Tier: " + seniority);
-            // iterate over the staff members in this tier, which are already sorted by caseLoad and staffId
+            // iterate over the staff members in this tier, which are already sorted by
+            // caseLoad and staffId
             for (StaffMember staff : tier) {
                 System.out.println("  " + staff);
             }
         }
     }
 
-    // TODO: Remove the member, set the new load, then add them back (the only safe way to change a load).
+    // TODO: Remove the member, set the new load, then add them back (the only safe
+    // way to change a load).
     private void changeLoad(StaffMember member, int newLoad) {
         // get the tier for the staff member's seniority
         Seniority seniority = member.getSeniority();
@@ -96,31 +101,35 @@ public class StaffRoster {
         tier.add(member);
     }
 
-    // TODO: Call assign(), record the treatment in history with the chosen staffId, and return that staff member.
+    // TODO: Call assign(), record the treatment in history with the chosen staffId,
+    // and return that staff member.
     public StaffMember assignTreatment(String patientID, String treatment, String timestamp, Seniority required) {
-        StaffMember staff = assign(required);   // assign() already bumps the load
+        StaffMember staff = assign(required); // assign() already bumps the load
         if (staff != null) {
             history.addTreatment(patientID, treatment, timestamp, staff.getStaffId());
         }
-    return staff;
+        return staff;
     }
 
-    // TODO: Pop the globally most recent treatment with your Week 3 undo, release whoever performed it, and return them (null if none).
+    // TODO: Pop the globally most recent treatment with your Week 3 undo, release
+    // whoever performed it, and return them (null if none).
     public StaffMember undoLastAssignment() {
-         TreatmentRecord last = history.undoLastAction(); // pop newest record
+        TreatmentRecord last = history.undoLastAction(); // pop newest record
         if (last == null) {
-            return null;  // history was empty
+            return null; // history was empty
         }
         StaffMember staff = findById(last.getPerformedBy()); // find the staff member who performed the last treatment
-        if (staff != null) { 
+        if (staff != null) {
             release(staff); // release the staff member from their last assignment
         }
         return staff;
     }
 
-    // TODO: Return the staff member with this staffId, or null if they are not in the roster.
+    // TODO: Return the staff member with this staffId, or null if they are not in
+    // the roster.
     private StaffMember findById(String staffId) {
-        // iterate over all tiers and their staff members to find the one with the matching staffId
+        // iterate over all tiers and their staff members to find the one with the
+        // matching staffId
         for (TreeSet<StaffMember> tier : tiers.values()) {
             for (StaffMember staff : tier) {
                 if (staff.getStaffId().equals(staffId)) {

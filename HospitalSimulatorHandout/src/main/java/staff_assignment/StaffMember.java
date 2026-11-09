@@ -29,7 +29,8 @@ public class StaffMember implements Comparable<StaffMember> {
         return caseLoad;
     }
 
-    // Package-private so only StaffRoster can change the load (see "Updating a Load" in the assignment).
+    // Package-private so only StaffRoster can change the load (see "Updating a
+    // Load" in the assignment).
     void setCaseLoad(int caseLoad) {
         this.caseLoad = caseLoad;
     }
