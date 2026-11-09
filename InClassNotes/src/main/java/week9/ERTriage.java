@@ -28,26 +28,79 @@ class HeapPQ {
     }
 
     private void swap(int a, int b) {
-        
+        Patient temp = heap[a];
+        heap[a] = heap[b];
+        heap[b] = temp;
     }
 
     // TODO Round 1: insert p in the next open slot, then restore the max-heap.
     void enqueue(Patient p) {
+        if (lastIndex == heap.length -1) {
+            throw new IllegalStateException("it is full");
+        }
+        lastIndex ++;
+        heap[lastIndex] = p;
+        reheapUp(lastIndex);
     }
 
     // TODO Round 1: swap upward while a patient's severity is greater than its parent's.
     // Parent of i: (i - 1) / 2
     private void reheapUp(int i) {
+        while (i>0) {
+            int parent = (i - 1) /2;
+            if(heap[i].severity <= heap[parent].severity) {
+                break;
+            }
+
+            swap(i, parent);
+            i = parent;
+            
+
+        }
     }
 
     // TODO Round 2: save the root, move the last patient to the root, shrink, and restore the heap.
     Patient dequeue() {
+        if (!isEmpty()) {
+            Patient root = heap[0];
+            heap[0] = heap[lastIndex];
+            heap[lastIndex] = null;
+            lastIndex--;
+            
+            if (!isEmpty()) {
+            reheapDown(0);
+            }
+    
+            return root;
+        }
+
         return null;
+
     }
 
     // TODO Round 2: swap down with the larger child while the max-heap property is broken.
     // Children of i: 2 * i + 1 and 2 * i + 2
     private void reheapDown(int i) {
+        while (true) {
+            int left = 2*i+1;
+            int right = 2*i+2;
+            int largest = i;
+
+            if (left <= lastIndex && heap[left].severity > heap[largest].severity) {
+                largest = left;
+            }
+
+            if (right <= lastIndex && heap[right].severity > heap[largest].severity) {
+                largest = right;
+            }
+
+            if (largest == i) {
+                break;
+            }
+
+            swap(i, largest);
+            i = largest;
+        }
     }
 
     @Override
